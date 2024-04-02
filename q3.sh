@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#input
+#Input
 read -p "Enter a 5-letter word: " word
 read -p "Enter the colors of the letters (g for green, y for yellow, s for gray): " colors
 
-# check if there are 5 characters
+#Check if there are 5 characters
 if [[ ${#word} -ne 5 || ${#colors} -ne 5 ]]; then
     echo "Error: Word and colors must be 5 characters long."
     exit 1
@@ -23,3 +23,15 @@ for (( i=0; i<5; i++ )); do
         pattern+="."
     fi
 done
+
+#Finding all the letters that shouldn't appear
+excluded=""
+for (( i=0; i<5; i++ )); do
+    if [[ ${colors:$i:1} == "s" && ${word:$i:1} != *[!${word:$i:1}]* ]]; then
+        excluded+="${word:$i:1}"
+    fi
+done
+
+#Search the words in the words.txt file
+results=$(grep "^$pattern$" words.txt | grep -vi "[$excluded]")
+
