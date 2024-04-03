@@ -37,11 +37,11 @@ for (( i=0; i<5; i++ )); do
 done
 
 #Search the words in the words.txt file
-results=$(grep "^$pattern$" words.txt | grep -vi "[$excluded]")
+results=$(grep -i "^$pattern$" words.txt | grep -vi "[$excluded]")
 
 #Filter the yellow letters
 for letter in $(echo "$yellow_letters" | fold -w1 | sort -u); do
-    results=$(echo "$results" | grep "$letter")
+    results=$(echo "$results" | grep -i "$letter")
 done
 
 echo "$results"
