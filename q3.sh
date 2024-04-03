@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #Input
-read -p "Enter a 5-letter word: " word
-read -p "Enter the colors of the letters (g for green, y for yellow, s for gray): " colors
+read -rp "Enter a 5-letter word: " word
+read -rp "Enter the colors of the letters (g for green, y for yellow, s for gray): " colors
 
 #Convert to lower case
-word=$(echo "$word" | tr 'A-Z' 'a-z')
-colors=$(echo "$colors" | tr 'A-Z' 'a-z')
+word=$(echo "$word" | tr '[:upper:]' '[:lower:]')
+colors=$(echo "$colors" | tr '[:upper:]' '[:lower:]')
 
 #Check if there are 5 characters
 if [[ ${#word} -ne 5 || ${#colors} -ne 5 ]]; then
