@@ -4,6 +4,10 @@
 read -p "Enter a 5-letter word: " word
 read -p "Enter the colors of the letters (g for green, y for yellow, s for gray): " colors
 
+#Convert to lower case
+word=$(echo "$word" | tr 'A-Z' 'a-z')
+colors=$(echo "$colors" | tr 'A-Z' 'a-z')
+
 #Check if there are 5 characters
 if [[ ${#word} -ne 5 || ${#colors} -ne 5 ]]; then
     echo "Error: Word and colors must be 5 characters long."
@@ -34,4 +38,11 @@ done
 
 #Search the words in the words.txt file
 results=$(grep "^$pattern$" words.txt | grep -vi "[$excluded]")
+
+#Filter the yellow letters
+for letter in $(echo "$yellow_letters" | fold -w1 | sort -u); do
+    results=$(echo "$results" | grep "$letter")
+done
+
+echo "$results"
 
